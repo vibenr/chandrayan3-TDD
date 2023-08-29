@@ -1,4 +1,3 @@
-
 function createSpacecraft(x, y, z, direction)
 {
     return {
@@ -11,108 +10,192 @@ function createSpacecraft(x, y, z, direction)
 
 function moveForward(spacecraft)
 {
-    // Implement forward movement based on the current direction
+    // testing lines 
+    console.log('forward function called')
     switch (spacecraft.direction)
     {
         case 'N':
-            return { ...spacecraft, y: spacecraft.y + 1 };
+            spacecraft.y += 1;
+            break;
         case 'S':
-            return { ...spacecraft, y: spacecraft.y - 1 };
+            spacecraft.y -= 1;
+            break;
         case 'E':
-            return { ...spacecraft, x: spacecraft.x + 1 };
+            spacecraft.x += 1;
+            break;
         case 'W':
-            return { ...spacecraft, x: spacecraft.x - 1 };
+            spacecraft.x -= 1;
+            break;
         case 'Up':
-            return { ...spacecraft, z: spacecraft.z + 1 };
+            spacecraft.z += 1;
+            break;
         case 'Down':
-            return { ...spacecraft, z: spacecraft.z - 1 };
-        default:
-            return spacecraft;
+            spacecraft.z -= 1;
+            break;
     }
 }
 
 function moveBackward(spacecraft)
 {
-    // Implement backward movement based on the current direction
+    console.log('backward function called')
     switch (spacecraft.direction)
     {
         case 'N':
-            return { ...spacecraft, y: spacecraft.y - 1 };
+            spacecraft.y -= 1;
+            break;
         case 'S':
-            return { ...spacecraft, y: spacecraft.y + 1 };
+            spacecraft.y += 1;
+            break;
         case 'E':
-            return { ...spacecraft, x: spacecraft.x - 1 };
+            spacecraft.x -= 1;
+            break;
         case 'W':
-            return { ...spacecraft, x: spacecraft.x + 1 };
+            spacecraft.x += 1;
+            break;
         case 'Up':
-            return { ...spacecraft, z: spacecraft.z - 1 };
+            spacecraft.z -= 1;
+            break;
         case 'Down':
-            return { ...spacecraft, z: spacecraft.z + 1 };
-        default:
-            return spacecraft;
+            spacecraft.z += 1;
+            break;
     }
 }
-
 
 function turnLeft(spacecraft)
 {
-    // Implement left rotation
+    console.log('turnleft function called')
     switch (spacecraft.direction)
     {
         case 'N':
-            return { ...spacecraft, direction: 'W' };
+            spacecraft.direction = 'W';
+            break;
         case 'S':
-            return { ...spacecraft, direction: 'E' };
+            spacecraft.direction = 'E';
+            break;
         case 'E':
-            return { ...spacecraft, direction: 'N' };
+            spacecraft.direction = 'N';
+            break;
         case 'W':
-            return { ...spacecraft, direction: 'S' };
-        default:
-            return spacecraft;
+            spacecraft.direction = 'S';
+            break;
+        case 'Up':
+            spacecraft.direction = 'Up';
+            break;
+        case 'Down':
+            spacecraft.direction = 'Down';
+            break;
     }
 }
-
 
 function turnRight(spacecraft)
 {
-    // Implement right rotation
+    console.log('turnRight function called')
     switch (spacecraft.direction)
     {
         case 'N':
-            return { ...spacecraft, direction: 'E' };
+            spacecraft.direction = 'E';
+            break;
         case 'S':
-            return { ...spacecraft, direction: 'W' };
+            spacecraft.direction = 'W';
+            break;
         case 'E':
-            return { ...spacecraft, direction: 'S' };
+            spacecraft.direction = 'S';
+            break;
         case 'W':
-            return { ...spacecraft, direction: 'N' };
-        default:
-            return spacecraft;
+            spacecraft.direction = 'N';
+            break;
+        case 'Up':
+            spacecraft.direction = 'Up';
+            break;
+        case 'Down':
+            spacecraft.direction = 'Down';
+            break;
     }
 }
-
 
 function turnUp(spacecraft)
 {
-    // Implement upward rotation
-    if (spacecraft.direction !== 'Up')
+    console.log('turnUp function called')
+    switch (spacecraft.direction)
     {
-        return { ...spacecraft, direction: 'Up' };
+        case 'N':
+            spacecraft.direction = 'Up';
+            break;
+        case 'S':
+            spacecraft.direction = 'Down';
+            break;
+        case 'E':
+            spacecraft.direction = 'E';
+            break;
+        case 'W':
+            spacecraft.direction = 'W';
+            break;
+        case 'Up':
+            spacecraft.direction = 'Up';
+            break;
+        case 'Down':
+            spacecraft.direction = 'Down';
+            break;
     }
-    return spacecraft;
 }
-
 
 function turnDown(spacecraft)
 {
-    // Implement downward rotation
-    if (spacecraft.direction !== 'Down')
+    console.log('turnDown function called')
+    switch (spacecraft.direction)
     {
-        return { ...spacecraft, direction: 'Down' };
+        case 'N':
+            spacecraft.direction = 'Down';
+            break;
+        case 'S':
+            spacecraft.direction = 'Up';
+            break;
+        case 'E':
+            spacecraft.direction = 'E';
+            break;
+        case 'W':
+            spacecraft.direction = 'W';
+            break;
+        case 'Up':
+            spacecraft.direction = 'Up';
+            break;
+        case 'Down':
+            spacecraft.direction = 'Down';
+            break;
     }
-    return spacecraft;
 }
 
+function executeCommands(commands)
+{
+    const spacecraft = createSpacecraft(0, 0, 0, 'N');
+
+    for (const command of commands)
+    {
+        switch (command)
+        {
+            case 'f':
+                moveForward(spacecraft);
+                break;
+            case 'b':
+                moveBackward(spacecraft);
+                break;
+            case 'l':
+                turnLeft(spacecraft);
+                break;
+            case 'r':
+                turnRight(spacecraft);
+                break;
+            case 'u':
+                turnUp(spacecraft);
+                break;
+            case 'd':
+                turnDown(spacecraft);
+                break;
+        }
+    }
+
+    return spacecraft;
+}
 
 module.exports = {
     createSpacecraft,
@@ -122,4 +205,5 @@ module.exports = {
     turnRight,
     turnUp,
     turnDown,
+    executeCommands,
 };
