@@ -1,0 +1,14 @@
+{
+  "name": "chandrayan3-tdd",
+  "version": "1.0.0",
+  "description": "chandrayan3-tdd assessment kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "vaibhav-chauhan (vibenr)",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
+}
