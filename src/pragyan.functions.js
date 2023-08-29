@@ -10,28 +10,42 @@ function createSpacecraft(x, y, z, direction)
     };
 }
 
+
+// Define the boundaries for x, y, z direction
+const boundary_x = 100;
+const boundary_y = 100;
+const boundary_z = 100;
+
+
+
 // function to execute 'f'[moveForward] command 
 function moveForward(spacecraft)
 {
     switch (spacecraft.direction)
     {
         case 'N':
-            spacecraft.y += 1;
+            if (spacecraft.y < boundary_y)
+                spacecraft.y += 1;
             break;
         case 'S':
-            spacecraft.y -= 1;
+            if (spacecraft.y > -boundary_y)
+                spacecraft.y -= 1;
             break;
         case 'E':
-            spacecraft.x += 1;
+            if (spacecraft.y < boundary_x)
+                spacecraft.x += 1;
             break;
         case 'W':
-            spacecraft.x -= 1;
+            if (spacecraft.x > -boundary_y)
+                spacecraft.x -= 1;
             break;
         case 'Up':
-            spacecraft.z += 1;
+            if (spacecraft.z < boundary_z)
+                spacecraft.z += 1;
             break;
         case 'Down':
-            spacecraft.z -= 1;
+            if (spacecraft.z > -boundary_y)
+                spacecraft.z -= 1;
             break;
     }
 }
@@ -42,22 +56,28 @@ function moveBackward(spacecraft)
     switch (spacecraft.direction)
     {
         case 'N':
-            spacecraft.y -= 1;
+            if (spacecraft.y > -boundary_y)
+                spacecraft.y -= 1;
             break;
         case 'S':
-            spacecraft.y += 1;
+            if (spacecraft.y < boundary_y)
+                spacecraft.y += 1;
             break;
         case 'E':
-            spacecraft.x -= 1;
+            if (spacecraft.x > -boundary_x)
+                spacecraft.x -= 1;
             break;
         case 'W':
-            spacecraft.x += 1;
+            if (spacecraft.x < boundary_x)
+                spacecraft.x += 1;
             break;
         case 'Up':
-            spacecraft.z -= 1;
+            if (spacecraft.z > -boundary_z)
+                spacecraft.z -= 1;
             break;
         case 'Down':
-            spacecraft.z += 1;
+            if (spacecraft.z < boundary_z)
+                spacecraft.z += 1;
             break;
     }
 }
@@ -117,51 +137,25 @@ function turnRight(spacecraft)
 // function to execute 'u'[turnUp] command 
 function turnUp(spacecraft)
 {
-    switch (spacecraft.direction)
+    if (spacecraft.direction !== 'Up' && spacecraft.direction !== 'Down')
     {
-        case 'N':
-            spacecraft.direction = 'Up';
-            break;
-        case 'S':
-            spacecraft.direction = 'Up';
-            break;
-        case 'E':
-            spacecraft.direction = 'Up';
-            break;
-        case 'W':
-            spacecraft.direction = 'Up';
-            break;
-        case 'Up':
-            break;
-        case 'Down':
-            spacecraft.direction = 'Up';
-            break;
+        // Only change direction to 'Up' if not already facing 'Up' or 'Down'
+        spacecraft.direction = 'Up';
     }
+    else
+        spacecraft.direction = 'Up'
 }
 
 // function to execute 'd'[turnDown] command 
 function turnDown(spacecraft)
 {
-    switch (spacecraft.direction)
+    if (spacecraft.direction !== 'Up' && spacecraft.direction !== 'Down')
     {
-        case 'N':
-            spacecraft.direction = 'Down';
-            break;
-        case 'S':
-            spacecraft.direction = 'Down';
-            break;
-        case 'E':
-            spacecraft.direction = 'Down';
-            break;
-        case 'W':
-            spacecraft.direction = 'Down';
-            break;
-        case 'Up':
-            spacecraft.direction = 'Down';
-            break;
-        case 'Down':
-            break;
+        // Only change direction to 'Down' if not already facing 'Up' or 'Down'
+        spacecraft.direction = 'Down';
     }
+    else
+        spacecraft.direction = 'Down'
 }
 
 

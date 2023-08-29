@@ -28,6 +28,16 @@ describe('Spacecraft Functions', () =>
             moveForward(spacecraft);
             expect(spacecraft).toEqual({ x: 0, y: 1, z: 0, direction: 'N' });
         });
+        // test('Should not move spacecraft forward diagonally', () =>
+        // {
+        //     const spacecraft = createSpacecraft(0, 0, 0, 'N');
+        //     // Move spacecraft diagonally by changing both x and y coordinates
+        //     spacecraft.x = 1;
+        //     spacecraft.y = 1;
+        //     moveForward(spacecraft);
+        //     // Expect the position to remain unchanged
+        //     expect(spacecraft).toEqual({ x: 1, y: 1, z: 0, direction: 'N' });
+        // });
     });
 
     describe('moveBackward', () =>
@@ -82,10 +92,20 @@ describe('Spacecraft Functions', () =>
 
     describe('executeCommands', () =>
     {
+
         test('Should execute commands and return final state', () =>
         {
+            // setting up the initial positions
+            const initialPosition = {
+                x: 0,
+                y: 0,
+                z: 0,
+                direction: 'N',
+            };
+
             const commands = ['f', 'r', 'u', 'b', 'l'];
-            const finalState = executeCommands(commands);
+
+            const finalState = executeCommands(commands, initialPosition);
 
             expect(finalState).toEqual({
                 x: 0,
@@ -94,6 +114,75 @@ describe('Spacecraft Functions', () =>
                 direction: 'N',
             });
         });
+
+
+
+
+        test('should handle multiple rotations in different directions', () =>
+        {
+            // setting up the initial positions
+            const initialPosition = {
+                x: 0,
+                y: 0,
+                z: 0,
+                direction: 'N',
+            };
+
+            const commands = ['r', 'r', 'r', 'l', 'l', 'l'];
+
+            const finalState = executeCommands(commands, initialPosition);
+
+            expect(finalState).toEqual({
+                x: 0,
+                y: 0,
+                z: 0,
+                direction: 'N',
+            });
+        });
+
+
+        test('Should execute a sequence of complex movements and rotations', () =>
+        {
+
+            // setting up the initial positions
+            const initialPosition = {
+                x: 0,
+                y: 0,
+                z: 0,
+                direction: 'N',
+            };
+
+
+            const commands = ['f', 'r', 'b', 'r', 'f', 'f', 'l', 'l', 'b', 'u', 'd'];
+            const finalState = executeCommands(commands, initialPosition);
+
+            // The expected final state can be calculated manually based on the commands
+            expect(finalState).toEqual({
+                x: -1,
+                y: -2,
+                z: 0,
+                direction: 'Down',
+            });
+        });
+
+
+
+
+
+
+        // test('Should execute complex commands and return final state', () =>
+        // {
+        //     const commands = ['f', 'r', 'u', 'b', 'l', 'd', 'f', 'l', 'f', 'r', 'f', 'f', 'b', 'b', 'r', 'l', 'b', 'f'];
+        //     const finalState = executeCommands(commands, initialPosition);
+
+        //     // The expected final state can be calculated manually based on the commands
+        //     expect(finalState).toEqual({
+        //         x: 2,
+        //         y: -2,
+        //         z: 0,
+        //         direction: 'W',
+        //     });
+        // });
     });
 
     // Add more test cases for different scenarios
