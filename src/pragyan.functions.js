@@ -79,10 +79,10 @@ function turnLeft(spacecraft)
             spacecraft.direction = 'S';
             break;
         case 'Up':
-            spacecraft.direction = 'Up';
+            spacecraft.direction = 'N';
             break;
         case 'Down':
-            spacecraft.direction = 'Down';
+            spacecraft.direction = 'S';
             break;
     }
 }
@@ -105,10 +105,10 @@ function turnRight(spacecraft)
             spacecraft.direction = 'N';
             break;
         case 'Up':
-            spacecraft.direction = 'Up';
+            spacecraft.direction = 'S';
             break;
         case 'Down':
-            spacecraft.direction = 'Down';
+            spacecraft.direction = 'N';
             break;
     }
 }
@@ -122,19 +122,18 @@ function turnUp(spacecraft)
             spacecraft.direction = 'Up';
             break;
         case 'S':
-            spacecraft.direction = 'Down';
-            break;
-        case 'E':
-            spacecraft.direction = 'E';
-            break;
-        case 'W':
-            spacecraft.direction = 'W';
-            break;
-        case 'Up':
             spacecraft.direction = 'Up';
             break;
+        case 'E':
+            spacecraft.direction = 'Up';
+            break;
+        case 'W':
+            spacecraft.direction = 'Up';
+            break;
+        case 'Up':
+            break;
         case 'Down':
-            spacecraft.direction = 'Down';
+            spacecraft.direction = 'Up';
             break;
     }
 }
@@ -148,19 +147,18 @@ function turnDown(spacecraft)
             spacecraft.direction = 'Down';
             break;
         case 'S':
-            spacecraft.direction = 'Up';
+            spacecraft.direction = 'Down';
             break;
         case 'E':
-            spacecraft.direction = 'E';
+            spacecraft.direction = 'Down';
             break;
         case 'W':
-            spacecraft.direction = 'W';
+            spacecraft.direction = 'Down';
             break;
         case 'Up':
-            spacecraft.direction = 'Up';
+            spacecraft.direction = 'Down';
             break;
         case 'Down':
-            spacecraft.direction = 'Down';
             break;
     }
 }

@@ -15,8 +15,8 @@ describe('Spacecraft Functions', () =>
     {
         test('Should create a spacecraft with initial properties', () =>
         {
-            const spacecraft = createSpacecraft(1, 2, 3, 'N');
-            expect(spacecraft).toEqual({ x: 1, y: 2, z: 3, direction: 'N' });
+            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            expect(spacecraft).toEqual({ x: 0, y: 0, z: 0, direction: 'N' });
         });
     });
 
@@ -27,16 +27,6 @@ describe('Spacecraft Functions', () =>
             const spacecraft = createSpacecraft(0, 0, 0, 'N');
             moveForward(spacecraft);
             expect(spacecraft).toEqual({ x: 0, y: 1, z: 0, direction: 'N' });
-        });
-    });
-
-    describe('turnRight', () =>
-    {
-        test('Should turn spacecraft to the right', () =>
-        {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
-            turnRight(spacecraft);
-            expect(spacecraft.direction).toBe('E');
         });
     });
 
@@ -60,7 +50,15 @@ describe('Spacecraft Functions', () =>
         });
     });
 
-
+    describe('turnRight', () =>
+    {
+        test('Should turn spacecraft to the right', () =>
+        {
+            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            turnRight(spacecraft);
+            expect(spacecraft.direction).toBe('E');
+        });
+    });
 
     describe('turnUp', () =>
     {
@@ -82,17 +80,21 @@ describe('Spacecraft Functions', () =>
         });
     });
 
-    test('Should execute commands and return final state', () =>
+    describe('executeCommands', () =>
     {
-        const commands = ['f', 'r', 'u', 'b', 'l'];
-        const finalState = executeCommands(commands);
+        test('Should execute commands and return final state', () =>
+        {
+            const commands = ['f', 'r', 'u', 'b', 'l'];
+            const finalState = executeCommands(commands);
 
-        expect(finalState).toEqual({
-            x: 0,
-            y: 1,
-            z: -1,
-            direction: 'N',
+            expect(finalState).toEqual({
+                x: 0,
+                y: 1,
+                z: -1,
+                direction: 'N',
+            });
         });
     });
+
     // Add more test cases for different scenarios
 });
