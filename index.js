@@ -1,3 +1,6 @@
+// this file contains the execution of given example 
+
+
 const { executeCommands } = require('./src/pragyan.functions');
 
 // Define the commands array.
