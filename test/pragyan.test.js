@@ -103,7 +103,7 @@ describe('Spacecraft Functions', () =>
             });
         });
 
-        test('Spacecraft Should not move beyond the galactic plane boundary (x = 100)', () =>
+        test('Spacecraft Should not move beyond the galactic plane boundary [100, 100, 100]', () =>
         {
             const initialPosition = {
                 x: 100,
