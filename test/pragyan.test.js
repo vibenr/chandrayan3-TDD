@@ -11,12 +11,20 @@ const {
 
 describe('Spacecraft Functions', () =>
 {
+
+    const initialPosition = {
+        x: 0,
+        y: 0,
+        z: 0,
+        direction: 'N',
+    };
+
     describe('createSpacecraft', () =>
     {
         test('Should create a spacecraft with initial properties', () =>
         {
             const spacecraft = createSpacecraft(0, 0, 0, 'N');
-            expect(spacecraft).toEqual({ x: 0, y: 0, z: 0, direction: 'N' });
+            expect(spacecraft).toEqual(initialPosition);
         });
     });
 
@@ -26,18 +34,8 @@ describe('Spacecraft Functions', () =>
         {
             const spacecraft = createSpacecraft(0, 0, 0, 'N');
             moveForward(spacecraft);
-            expect(spacecraft).toEqual({ x: 0, y: 1, z: 0, direction: 'N' });
+            expect(spacecraft).toEqual({ ...initialPosition, y: 1 });
         });
-        // test('Should not move spacecraft forward diagonally', () =>
-        // {
-        //     const spacecraft = createSpacecraft(0, 0, 0, 'N');
-        //     // Move spacecraft diagonally by changing both x and y coordinates
-        //     spacecraft.x = 1;
-        //     spacecraft.y = 1;
-        //     moveForward(spacecraft);
-        //     // Expect the position to remain unchanged
-        //     expect(spacecraft).toEqual({ x: 1, y: 1, z: 0, direction: 'N' });
-        // });
     });
 
     describe('moveBackward', () =>
@@ -46,7 +44,7 @@ describe('Spacecraft Functions', () =>
         {
             const spacecraft = createSpacecraft(0, 0, 0, 'N');
             moveBackward(spacecraft);
-            expect(spacecraft).toEqual({ x: 0, y: -1, z: 0, direction: 'N' });
+            expect(spacecraft).toEqual({ ...initialPosition, y: -1 });
         });
     });
 
@@ -90,26 +88,11 @@ describe('Spacecraft Functions', () =>
         });
     });
 
-
-
-    // --------------------------------------------------------------------------------------------------------------------------------
-
-    // multiple tests of executing commands
     describe('executeCommands', () =>
     {
-
         test('Should execute commands provided in array and return final state', () =>
         {
-            // setting up the initial positions
-            const initialPosition = {
-                x: 0,
-                y: 0,
-                z: 0,
-                direction: 'N',
-            };
-
             const commands = ['f', 'r', 'u', 'b', 'l'];
-
             const finalState = executeCommands(commands, initialPosition);
 
             expect(finalState).toEqual({
@@ -120,71 +103,40 @@ describe('Spacecraft Functions', () =>
             });
         });
 
-        test('Spacecraft Should not move beyond the galectic plane bouned till 100', () =>
+        test('Spacecraft Should not move beyond the galactic plane boundary (x = 100)', () =>
         {
-            // setting up the initial positions
             const initialPosition = {
                 x: 100,
                 y: 0,
                 z: 0,
                 direction: 'E',
             };
-
-            const commands = ['f',];
+            const commands = ['f'];
 
             const finalState = executeCommands(commands, initialPosition);
 
-            // should not change x coordinate and return the same
-            expect(finalState).toEqual({
-                x: 100,
-                y: 0,
-                z: 0,
-                direction: 'E',
-            });
+            expect(finalState).toEqual(initialPosition);
         });
 
-
-
-
-        test('should handle multiple rotations in different directions', () =>
+        test('Should handle multiple rotations in different directions', () =>
         {
-            // setting up the initial positions
-            const initialPosition = {
-                x: 0,
-                y: 0,
-                z: 0,
-                direction: 'N',
-            };
-
             const commands = ['r', 'r', 'r', 'l', 'l', 'l'];
-
             const finalState = executeCommands(commands, initialPosition);
 
-            expect(finalState).toEqual({
-                x: 0,
-                y: 0,
-                z: 0,
-                direction: 'N',
-            });
+            expect(finalState).toEqual(initialPosition);
         });
-
 
         test('Should execute a sequence of complex movements and rotations', () =>
         {
-
-            // setting up the initial positions
             const initialPosition = {
                 x: 0,
                 y: 0,
                 z: 0,
                 direction: 'N',
             };
-
-
             const commands = ['f', 'r', 'b', 'r', 'f', 'f', 'l', 'l', 'b', 'u', 'd'];
             const finalState = executeCommands(commands, initialPosition);
 
-            // The expected final state can be calculated manually based on the commands
             expect(finalState).toEqual({
                 x: -1,
                 y: -2,
@@ -194,35 +146,14 @@ describe('Spacecraft Functions', () =>
         });
     });
 
-
-    // ----------------------------------------------------------------------------------------------------------------------------------
-
-    // Test handling of invalid commands
     describe('Invalid Command Handling', () =>
     {
-        // setting up the initial positions
-        const initialPosition = {
-            x: 0,
-            y: 0,
-            z: 0,
-            direction: 'N',
-        };
-
         test('Should ignore invalid commands', () =>
         {
             const commands = ['f', 'x', 'b', 'y', 'l', 'z', 'r'];
             const finalState = executeCommands(commands, initialPosition);
 
-            // Invalid commands 'x', 'y', 'z' should be ignored, only valid commands are executed.
-            expect(finalState).toEqual({
-                x: 0,
-                y: 0,
-                z: 0,
-                direction: 'N',
-            });
+            expect(finalState).toEqual(initialPosition);
         });
     });
-
-
-    // Add more test cases for different scenarios
 });
