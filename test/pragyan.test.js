@@ -90,6 +90,11 @@ describe('Spacecraft Functions', () =>
         });
     });
 
+
+
+    // --------------------------------------------------------------------------------------------------------------------------------
+
+    // multiple tests of executing commands
     describe('executeCommands', () =>
     {
 
@@ -112,6 +117,29 @@ describe('Spacecraft Functions', () =>
                 y: 1,
                 z: -1,
                 direction: 'N',
+            });
+        });
+
+        test('Spacecraft Should not move beyond the galectic plane bouned till 100', () =>
+        {
+            // setting up the initial positions
+            const initialPosition = {
+                x: 100,
+                y: 0,
+                z: 0,
+                direction: 'E',
+            };
+
+            const commands = ['f',];
+
+            const finalState = executeCommands(commands, initialPosition);
+
+            // should not change x coordinate and return the same
+            expect(finalState).toEqual({
+                x: 100,
+                y: 0,
+                z: 0,
+                direction: 'E',
             });
         });
 
@@ -164,26 +192,37 @@ describe('Spacecraft Functions', () =>
                 direction: 'Down',
             });
         });
-
-
-
-
-
-
-        // test('Should execute complex commands and return final state', () =>
-        // {
-        //     const commands = ['f', 'r', 'u', 'b', 'l', 'd', 'f', 'l', 'f', 'r', 'f', 'f', 'b', 'b', 'r', 'l', 'b', 'f'];
-        //     const finalState = executeCommands(commands, initialPosition);
-
-        //     // The expected final state can be calculated manually based on the commands
-        //     expect(finalState).toEqual({
-        //         x: 2,
-        //         y: -2,
-        //         z: 0,
-        //         direction: 'W',
-        //     });
-        // });
     });
+
+
+    // ----------------------------------------------------------------------------------------------------------------------------------
+
+    // Test handling of invalid commands
+    describe('Invalid Command Handling', () =>
+    {
+        // setting up the initial positions
+        const initialPosition = {
+            x: 0,
+            y: 0,
+            z: 0,
+            direction: 'N',
+        };
+
+        test('Should ignore invalid commands', () =>
+        {
+            const commands = ['f', 'x', 'b', 'y', 'l', 'z', 'r'];
+            const finalState = executeCommands(commands, initialPosition);
+
+            // Invalid commands 'x', 'y', 'z' should be ignored, only valid commands are executed.
+            expect(finalState).toEqual({
+                x: 0,
+                y: 0,
+                z: 0,
+                direction: 'N',
+            });
+        });
+    });
+
 
     // Add more test cases for different scenarios
 });

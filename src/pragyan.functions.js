@@ -32,7 +32,7 @@ function moveForward(spacecraft)
                 spacecraft.y -= 1;
             break;
         case 'E':
-            if (spacecraft.y < boundary_x)
+            if (spacecraft.x < boundary_x)
                 spacecraft.x += 1;
             break;
         case 'W':

@@ -4,7 +4,8 @@
   "description": "chandrayan3-tdd assessment kata",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest", 
+    "start": "node index.js"
   },
   "author": "vaibhav-chauhan (vibenr)",
   "license": "ISC",

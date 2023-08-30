@@ -32,10 +32,10 @@ Install dependencies
   npm install
 ```
 
-To run output, run the following command
+To examine given example, run the following command
 
 ```bash
-  node index.js
+  npm run start
 ```
 
 
@@ -50,7 +50,7 @@ To run tests, run the following command
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![test_screenshot]('./../public/jest-test.png')
 
 
 ## Tools & Programming Language
