@@ -93,7 +93,7 @@ describe('Spacecraft Functions', () =>
     describe('executeCommands', () =>
     {
 
-        test('Should execute commands and return final state', () =>
+        test('Should execute commands provided in array and return final state', () =>
         {
             // setting up the initial positions
             const initialPosition = {
