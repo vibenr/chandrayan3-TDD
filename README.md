@@ -50,7 +50,7 @@ To run tests, run the following command
 
 ## Screenshots
 
-![test_screenshot]('./../public/jest-test.png')
+![test_screenshot](./public/jest-test.png)
 
 
 ## Tools & Programming Language
