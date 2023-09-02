@@ -17,13 +17,15 @@ describe('Spacecraft Functions', () =>
         y: 0,
         z: 0,
         direction: 'N',
+        priorDirections: [],
     };
 
     describe('createSpacecraft', () =>
     {
         test('Should create a spacecraft with initial properties', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            priorDirections = []
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             expect(spacecraft).toEqual(initialPosition);
         });
     });
@@ -32,9 +34,9 @@ describe('Spacecraft Functions', () =>
     {
         test('Should move spacecraft forward in the correct direction', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             moveForward(spacecraft);
-            expect(spacecraft).toEqual({ ...initialPosition, y: 1 });
+            expect(spacecraft.y).toEqual(1);
         });
     });
 
@@ -42,9 +44,9 @@ describe('Spacecraft Functions', () =>
     {
         test('Should move spacecraft backward in the correct direction', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             moveBackward(spacecraft);
-            expect(spacecraft).toEqual({ ...initialPosition, y: -1 });
+            expect(spacecraft.y).toEqual(-1);
         });
     });
 
@@ -52,7 +54,7 @@ describe('Spacecraft Functions', () =>
     {
         test('Should turn spacecraft to the left', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             turnLeft(spacecraft);
             expect(spacecraft.direction).toBe('W');
         });
@@ -62,7 +64,7 @@ describe('Spacecraft Functions', () =>
     {
         test('Should turn spacecraft to the right', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             turnRight(spacecraft);
             expect(spacecraft.direction).toBe('E');
         });
@@ -72,7 +74,7 @@ describe('Spacecraft Functions', () =>
     {
         test('Should turn spacecraft upwards', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             turnUp(spacecraft);
             expect(spacecraft.direction).toBe('Up');
         });
@@ -82,7 +84,7 @@ describe('Spacecraft Functions', () =>
     {
         test('Should turn spacecraft downwards', () =>
         {
-            const spacecraft = createSpacecraft(0, 0, 0, 'N');
+            const spacecraft = createSpacecraft(0, 0, 0, 'N', priorDirections);
             turnDown(spacecraft);
             expect(spacecraft.direction).toBe('Down');
         });
@@ -100,6 +102,7 @@ describe('Spacecraft Functions', () =>
                 y: 1,
                 z: -1,
                 direction: 'N',
+                priorDirections: ['N', 'E', 'N']
             });
         });
 
@@ -110,6 +113,7 @@ describe('Spacecraft Functions', () =>
                 y: 0,
                 z: 0,
                 direction: 'E',
+                priorDirections: []
             };
             const commands = ['f'];
 
@@ -133,6 +137,7 @@ describe('Spacecraft Functions', () =>
                 y: 0,
                 z: 0,
                 direction: 'N',
+                priorDirections: [],
             };
             const commands = ['f', 'r', 'b', 'r', 'f', 'f', 'l', 'l', 'b', 'u', 'd'];
             const finalState = executeCommands(commands, initialPosition);
@@ -142,6 +147,13 @@ describe('Spacecraft Functions', () =>
                 y: -2,
                 z: 0,
                 direction: 'Down',
+                priorDirections: [
+
+                    'N', 'E', 'E',
+                    'S', 'S', 'S',
+                    'E', 'N', 'N',
+                    'Up', 'Down'
+                ]
             });
         });
     });

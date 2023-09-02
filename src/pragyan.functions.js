@@ -1,12 +1,13 @@
 
 // create spacecraft object that contains x,y,z coordinates and direction of spacecraft
-function createSpacecraft(x, y, z, direction)
+function createSpacecraft(x, y, z, direction, priorDirections)
 {
     return {
         x,
         y,
         z,
         direction,
+        priorDirections,
     };
 }
 
@@ -21,9 +22,11 @@ const boundary_z = 100;
 // function to execute 'f'[moveForward] command 
 function moveForward(spacecraft)
 {
+
     switch (spacecraft.direction)
     {
         case 'N':
+            console.log('----')
             if (spacecraft.y < boundary_y)
                 spacecraft.y += 1;
             break;
@@ -48,6 +51,7 @@ function moveForward(spacecraft)
                 spacecraft.z -= 1;
             break;
     }
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 // function to execute 'b'[moveBackward] command 
@@ -80,6 +84,7 @@ function moveBackward(spacecraft)
                 spacecraft.z += 1;
             break;
     }
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 // function to execute 'l'[turnLeft] command 
@@ -100,17 +105,45 @@ function turnLeft(spacecraft)
             spacecraft.direction = 'S';
             break;
         case 'Up':
-            spacecraft.direction = 'N';
+            while (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Up' || spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Down')
+            {
+                spacecraft.priorDirections.pop();
+            }
+            console.log(spacecraft.priorDirections)
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'E')
+                spacecraft.direction = 'N';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'N')
+                spacecraft.direction = 'W';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'S')
+                spacecraft.direction = 'E';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'W')
+                spacecraft.direction = 'S';
+
             break;
         case 'Down':
-            spacecraft.direction = 'S';
+
+            while (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Up' && spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Down')
+            {
+                spacecraft.priorDirections.pop();
+            }
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'E')
+                spacecraft.direction = 'N';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'N')
+                spacecraft.direction = 'W';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'S')
+                spacecraft.direction = 'E';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'W')
+                spacecraft.direction = 'S';
+
             break;
     }
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 // function to execute 'r'[turnRight] command 
 function turnRight(spacecraft)
 {
+
     switch (spacecraft.direction)
     {
         case 'N':
@@ -126,12 +159,37 @@ function turnRight(spacecraft)
             spacecraft.direction = 'N';
             break;
         case 'Up':
-            spacecraft.direction = 'S';
+            while (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Up' || spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Down')
+            {
+                spacecraft.priorDirections.pop();
+            }
+            console.log(spacecraft.priorDirections)
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'E')
+                spacecraft.direction = 'S';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'N')
+                spacecraft.direction = 'E';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'S')
+                spacecraft.direction = 'W';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'W')
+                spacecraft.direction = 'N';
             break;
         case 'Down':
-            spacecraft.direction = 'N';
+            while (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Up' || spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'Down')
+            {
+                spacecraft.priorDirections.pop();
+            }
+            console.log(spacecraft.priorDirections)
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'E')
+                spacecraft.direction = 'S';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'N')
+                spacecraft.direction = 'E';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'S')
+                spacecraft.direction = 'W';
+            if (spacecraft.priorDirections[spacecraft.priorDirections.length - 1] == 'W')
+                spacecraft.direction = 'N';
             break;
     }
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 // function to execute 'u'[turnUp] command 
@@ -143,7 +201,9 @@ function turnUp(spacecraft)
         spacecraft.direction = 'Up';
     }
     else
-        spacecraft.direction = 'Up'
+        spacecraft.direction = 'Up';
+
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 // function to execute 'd'[turnDown] command 
@@ -156,6 +216,8 @@ function turnDown(spacecraft)
     }
     else
         spacecraft.direction = 'Down'
+
+    spacecraft.priorDirections.push(spacecraft.direction)
 }
 
 

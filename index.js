@@ -12,6 +12,7 @@ const initialPosition = {
     y: 0,
     z: 0,
     direction: 'N',
+    priorDirections: [],
 };
 
 // Calculate the final state of the spacecraft after executing the commands.
@@ -34,3 +35,6 @@ console.log(`(${finalState.x}, ${finalState.y}, ${finalState.z})`);
 
 console.log('\n**Final Direction**');
 console.log(finalState.direction);
+
+console.log('\n**Prior Directions');
+console.log(finalState.priorDirections);
